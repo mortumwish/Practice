@@ -1,12 +1,39 @@
 package main.java.bank_account;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
-class Bank {
-    protected static List<User> users = new ArrayList<>();
+public class User {
+    public int id;
+    public String phone;
+    public String name;
+    public int deposit;
+    private static ArrayList<User> users = new ArrayList<>();
+
+    User(String userName, String userPhone, int deposit) {
+        this.id = users.size();
+        this.phone = userPhone;
+        this.name = userName;
+        this.deposit = deposit;
+        users.add(this);
+    }
+
+    public void showUserInfo() {
+        System.out.println("Info of User: \n  Id: " + this.id + "; Name: " + this.name + "; Phone number: " + this.phone + "; Deposit: " + this.deposit + ".");
+    }
+
+    public void transfer(User transferTo, int sumOfMoneyToTransfer) {
+        System.out.println("Command: Attempting to transfer money from account ID: " + this.id + " (" + this.name + ")"
+                + " to account ID: " + transferTo.id + " (" + transferTo.name + ")");
+        if (this.deposit <= 0 || sumOfMoneyToTransfer > this.deposit) {
+            System.out.println("Error. Not enough money for a transfer.");
+        } else {
+            transferTo.deposit += sumOfMoneyToTransfer;
+            this.deposit -= sumOfMoneyToTransfer;
+            System.out.println("The transfer was successful.");
+        }
+    }
 
     public static User findUserById(int userId) {
         try {
@@ -52,38 +79,6 @@ class Bank {
             } catch (IndexOutOfBoundsException exception) {
                 System.out.println("Choose an id from the list!");
             }
-        }
-    }
-}
-
-
-class User extends Bank {
-    int id;
-    String phone;
-    String name;
-    int deposit;
-
-    User(String userName, String userPhone, int deposit) {
-        this.id = users.size();
-        this.phone = userPhone;
-        this.name = userName;
-        this.deposit = deposit;
-        users.add(this);
-    }
-
-    public void showUserInfo() {
-        System.out.println("Info of User: \n  Id: " + this.id + "; Name: " + this.name + "; Phone number: " + this.phone + "; Deposit: " + this.deposit + ".");
-    }
-
-    public void transfer(User transferTo, int sumOfMoneyToTransfer) {
-        System.out.println("Command: Attempting to transfer money from account ID: " + this.id + " (" + this.name + ")"
-                + " to account ID: " + transferTo.id + " (" + transferTo.name + ")");
-        if (this.deposit <= 0 || sumOfMoneyToTransfer > this.deposit) {
-            System.out.println("Error. Not enough money for a transfer.");
-        } else {
-            transferTo.deposit += sumOfMoneyToTransfer;
-            this.deposit -= sumOfMoneyToTransfer;
-            System.out.println("The transfer was successful.");
         }
     }
 }
