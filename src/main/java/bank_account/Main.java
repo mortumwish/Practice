@@ -2,10 +2,10 @@ package main.java.bank_account;
 
 public class Main {
     public static void main(String[] args) {
-        UserAccount nikita = new UserAccount("Nikita", "+79532435543", 10000);
-        UserAccount danil1 = new UserAccount("Danil", "+788005553535", 8000);
-        UserAccount danil2 = new UserAccount("Danil", "+79378893213", 5000); // нужен для демонстрации работы выбора по имени
+        User nikita = new User("Nikita", "+79532435543", 10000);
+        User danil1 = new User("Danil", "+788005553535", 8000);
+        User danil2 = new User("Danil", "+79378893213", 5000); // нужен для демонстрации работы выбора по имени
 
-        UserAccount.findUsersByName("Danil").transfer(UserAccount.findUserById(0), 3500);
+        User.findUsersByName("Danil").transfer(User.findUserById(0), 3500);
     }
 }

@@ -6,12 +6,12 @@ import java.util.Objects;
 import java.util.Scanner;
 
 class Bank {
-    protected static List<UserAccount> users = new ArrayList<>();
+    protected static List<User> users = new ArrayList<>();
 
-    public static UserAccount findUserById(int userId) {
+    public static User findUserById(int userId) {
         try {
             System.out.println("Command: Trying to find user by userID: " + userId);
-            UserAccount foundUser = users.get(userId);
+            User foundUser = users.get(userId);
             System.out.println("User found successfully");
             return foundUser;
         } catch (IndexOutOfBoundsException exception) {
@@ -20,10 +20,10 @@ class Bank {
         }
     }
 
-    public static UserAccount findUsersByName(String userName) {
+    public static User findUsersByName(String userName) {
         System.out.println("Command: Searching user by " + "\"" + userName + "\"");
-        ArrayList<UserAccount> foundList = new ArrayList<>();
-        for (UserAccount currentUser : users) {
+        ArrayList<User> foundList = new ArrayList<>();
+        for (User currentUser : users) {
             if (Objects.equals(currentUser.name, userName)) {
                 foundList.add(currentUser);
             }
@@ -40,8 +40,8 @@ class Bank {
         }
     }
 
-    public static UserAccount getUserByIdFromScanner(ArrayList<UserAccount> foundList) {
-        for (UserAccount user : foundList) {
+    public static User getUserByIdFromScanner(ArrayList<User> foundList) {
+        for (User user : foundList) {
             System.out.println("  Id: " + user.id + "; Name: " + user.name + "; Phone number: " + user.phone + "; Deposit: " + user.deposit + ".");
         }
         Scanner in = new Scanner(System.in);
@@ -57,13 +57,13 @@ class Bank {
 }
 
 
-class UserAccount extends Bank {
+class User extends Bank {
     int id;
     String phone;
     String name;
     int deposit;
 
-    UserAccount(String userName, String userPhone, int deposit) {
+    User(String userName, String userPhone, int deposit) {
         this.id = users.size();
         this.phone = userPhone;
         this.name = userName;
@@ -75,7 +75,7 @@ class UserAccount extends Bank {
         System.out.println("Info of User: \n  Id: " + this.id + "; Name: " + this.name + "; Phone number: " + this.phone + "; Deposit: " + this.deposit + ".");
     }
 
-    public void transfer(UserAccount transferTo, int sumOfMoneyToTransfer) {
+    public void transfer(User transferTo, int sumOfMoneyToTransfer) {
         System.out.println("Command: Attempting to transfer money from account ID: " + this.id + " (" + this.name + ")"
                 + " to account ID: " + transferTo.id + " (" + transferTo.name + ")");
         if (this.deposit <= 0 || sumOfMoneyToTransfer > this.deposit) {
