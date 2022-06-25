@@ -5,21 +5,21 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class User {
-    public int id;
-    public String phone;
-    public String name;
-    public int deposit;
+    private int id;
+    private String phone;
+    private String name;
+    private int deposit;
     private static ArrayList<User> users = new ArrayList<>();
 
-    User(String userName, String userPhone, int deposit) {
+    User(String name, String phone, int deposit) {
         this.id = users.size();
-        this.phone = userPhone;
-        this.name = userName;
+        this.phone = phone;
+        this.name = name;
         this.deposit = deposit;
         users.add(this);
     }
 
-    public void showUserInfo() {
+    public void showInfo() {
         System.out.println("Info of User: \n  Id: " + this.id + "; Name: " + this.name + "; Phone number: " + this.phone + "; Deposit: " + this.deposit + ".");
     }
 
@@ -35,10 +35,10 @@ public class User {
         }
     }
 
-    public static User findUserById(int userId) {
+    public static User findUserById(int id) {
         try {
-            System.out.println("Command: Trying to find user by userID: " + userId);
-            User foundUser = users.get(userId);
+            System.out.println("Command: Trying to find user by userID: " + id);
+            User foundUser = users.get(id);
             System.out.println("User found successfully");
             return foundUser;
         } catch (IndexOutOfBoundsException exception) {
@@ -47,11 +47,11 @@ public class User {
         }
     }
 
-    public static User findUsersByName(String userName) {
-        System.out.println("Command: Searching user by " + "\"" + userName + "\"");
+    public static User findUsersByName(String name) {
+        System.out.println("Command: Searching user by " + "\"" + name + "\"");
         ArrayList<User> foundList = new ArrayList<>();
         for (User currentUser : users) {
-            if (Objects.equals(currentUser.name, userName)) {
+            if (Objects.equals(currentUser.name, name)) {
                 foundList.add(currentUser);
             }
         }
@@ -59,7 +59,7 @@ public class User {
             System.out.println("No Matches");
             return null;
         } else if (foundList.size() == 1) {
-            System.out.println("1 search match by \"" + userName + "\". The search was successful.");
+            System.out.println("1 search match by \"" + name + "\". The search was successful.");
             return foundList.get(0);
         } else {
             System.out.println("Error. Several matches were found. Information about all matches is displayed. Please find a user by his ID.");
