@@ -14,6 +14,6 @@ public class Main {
 
         System.out.println(dir1.getDirectory(0).getDirectory(0).getFile(0).getPath());
 
-        System.out.println(dir1.getDirectoryContents());
+        System.out.println(dir1.getDirectory(0).getDirectoryContents());
     }
 }

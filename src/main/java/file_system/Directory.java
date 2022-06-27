@@ -1,29 +1,20 @@
 package main.java.file_system;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Directory {
-    private String name;
-    private String path;
-    private LocalDate date;
+public class Directory extends FileSystem{
     private List<Directory> directoryList;
     private List<File> fileList;
     private final int size = 1; // представим, что папка весит хоть что-то (1 байт) :)
 
     public Directory(String name) {
-        this.name = name;
-        this.path = getName();
-        this.date = LocalDate.now();
+        super(name);
         this.directoryList = new ArrayList<>();
         this.fileList = new ArrayList<>();
     }
 
-    public String getName() {
-        return name;
-    }
-
+    @Override
     public int getSize() {
         int size = this.size;
         for (Directory directory : directoryList) {
@@ -35,10 +26,6 @@ public class Directory {
         return size;
     }
 
-    public LocalDate getDate() {
-        return date;
-    }
-
     public Directory getDirectory(int index) {
         return directoryList.get(index);
     }
@@ -47,12 +34,8 @@ public class Directory {
         return fileList.get(index);
     }
 
-    public String getPath() {
-        return path;
-    }
-
     public StringBuilder getDirectoryContents() {
-        StringBuilder content = new StringBuilder();
+        StringBuilder content = new StringBuilder("Contents of directory " + getName() + ":\n");
         for (Directory directory : directoryList) {
             content.append(" - " + directory.getName() + "/ Creation date: " + directory.getDate() + "\n");
 
@@ -61,10 +44,6 @@ public class Directory {
             content.append(" - " + file.getName() + " Creation date: " + file.getDate() + " Size: " + file.getSize() + " bytes \n");
         }
         return content;
-    }
-
-    public void setParentDirectory(String parentDirectory) {
-        path = parentDirectory + "/" + getName();
     }
 
     public void add(Directory... directories) {
