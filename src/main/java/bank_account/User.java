@@ -26,9 +26,11 @@ public class User {
     public void transfer(User transferTo, int sumOfMoneyToTransfer) {
         System.out.println("Command: Attempting to transfer money from account ID: " + this.id + " (" + this.name + ")"
                 + " to account ID: " + transferTo.id + " (" + transferTo.name + ")");
-        if (this.deposit <= 0 || sumOfMoneyToTransfer > this.deposit) {
+        if ((this.deposit <= 0 || sumOfMoneyToTransfer > this.deposit)) {
             System.out.println("Error. Not enough money for a transfer.");
-        } else {
+        } else if (transferTo == this){
+            System.out.println("Error. You can't transfer money to your own account.");
+        }else {
             transferTo.deposit += sumOfMoneyToTransfer;
             this.deposit -= sumOfMoneyToTransfer;
             System.out.println("The transfer was successful.");
