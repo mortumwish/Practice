@@ -1,7 +1,7 @@
 package main.java.file_system;
 
-public class File extends FileSystem {
+public class File extends FileSystemObjects {
     File(String name, int size) {
-        super(name, size);
+        super(name,size);
     }
 }
