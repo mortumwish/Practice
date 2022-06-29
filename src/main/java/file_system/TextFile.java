@@ -4,7 +4,7 @@ public class TextFile extends File {
     private int size;
 
     TextFile(String name, int size, Directory parent) {
-        super(name, parent);
+        super(name);
         this.size = size;
         parent.getFileList().add(this);
     }

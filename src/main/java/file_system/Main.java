@@ -25,12 +25,11 @@ public class Main {
         System.out.println(dir3.getPath());
         System.out.println(file1.getPath());
 
-
-
         System.out.println(root.getDirectoryContents());
         System.out.println("file1 path before: " + file1.getPath());
-        dir3.move(dir1);
-        file2.move(root);
+
+        dir1.add(dir3);
+
         System.out.println(root.getDirectoryContents());
         System.out.println("file1 path after: " + file1.getPath());
 

@@ -42,10 +42,12 @@ public class Directory extends File {
         return this.getName() + "(" + content + ")";
     }
 
-
     public List<File> getFileList() {
         return this.files;
     }
 
+    public void add(File file){
+        file.move(this);
+    }
 
 }
