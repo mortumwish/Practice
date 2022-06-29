@@ -14,7 +14,8 @@ public class TextFile extends File {
     }
 
     public void move(Directory moveTo) {
-        super.move(moveTo);
+        ((Directory)this.getParent()).getFileList().remove(this);
+        moveTo.getFileList().add(this);
         this.parent = moveTo;
     }
 }

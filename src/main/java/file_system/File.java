@@ -6,7 +6,6 @@ import java.util.List;
 abstract class File {
     private String name;
     private int size;
-    private List<File> files = new ArrayList<>();
 
     File(String name) {
         this.name = name;
@@ -35,13 +34,7 @@ abstract class File {
 
     public abstract File getParent();
 
-    public List<File> getFileList() {
-        return this.files;
-    }
 
-    public void move(Directory moveTo) {
-        this.getParent().getFileList().remove(this);
-        moveTo.getFileList().add(this);
-    }
+
 
 }
