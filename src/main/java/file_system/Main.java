@@ -2,15 +2,13 @@ package main.java.file_system;
 
 public class Main {
     public static void main(String[] args) {
-        Directory dir1 = new Directory("dir1");
-        Directory dir2 = new Directory("dir2");
-        Directory dir3 = new Directory("dir3");
-        Directory dir4 = new Directory("dir4");
-        Directory dir5 = new Directory("dir5");
+        Directory root = new Directory("root");
 
-        File file1 = new File("file1.txt", 10);
-        File file2 = new File("file2.txt", 30);
-
+        Directory dir1 = new Directory("dir1", root);
+        Directory dir2 = new Directory("dir2", dir1);
+        Directory dir3 = new Directory("dir3", dir2);
+        TextFile file1 = new TextFile("file1.txt", 10, dir3);
+        TextFile file2 = new TextFile("file2.txt", 30, dir3);
 //        вложенность:
 //        dir1
 //            dir2
@@ -18,25 +16,16 @@ public class Main {
 //                    dir4
 //                    file1.txt
 //                    file2.txt
-//            dir5
+//                dir5
+        System.out.println(root.getDirectoryContents());
+        System.out.println("file1 path before: " + file1.getPath());
+        dir3.move(dir1);
+        file2.move(root);
+        System.out.println(root.getDirectoryContents());
+        System.out.println("file1 path after: " + file1.getPath());
 
-        dir1.addElement(dir2);
-        dir2.addElement(dir3);
-        dir3.addElement(dir4);
-        dir3.addElement(file1);
-        dir3.addElement(file2);
-        dir2.addElement(dir5);
-
-        System.out.println("old path for dir3: " + dir3.getPath());
-
-        dir3.setParentDirectory(dir1);
-
-        System.out.println("new path:\nfor dir3: " + dir3.getPath());
-
-        System.out.println("for dir4: " + dir4.getPath());
-        System.out.println("for file1: " + file1.getPath());
-        System.out.println("for file2: " + file2.getPath() + "\n");
-
+        System.out.println("\nroot's size: " + root.getSize());
+        System.out.println("dir3's size: " + dir3.getSize());
 
     }
 }

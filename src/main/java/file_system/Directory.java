@@ -1,42 +1,49 @@
 package main.java.file_system;
 
-import java.util.ArrayList;
-import java.util.List;
 
-public class Directory extends FileSystemObjects {
-    private List<FileSystemObjects> elements = new ArrayList<>();
-    private final int systemSize = 1; // представим, что папка весит хоть что-то (1 байт)
+public class Directory extends File {
+    private Directory parent;
 
     public Directory(String name) {
         super(name);
     }
 
+    public Directory(String name, Directory parent) {
+        super(name);
+        this.parent = parent;
+        parent.getFileList().add(this);
+    }
+
     @Override
     public int getSize() {
-        int size = this.systemSize;
-        for (FileSystemObjects element : this.elements) {
+        // представим, что папка весит хоть что-то (1 байт)
+        int systemSize = 1;
+        int size = systemSize;
+        for (File element : this.getFileList()) {
             size += element.getSize();
         }
         return size;
     }
 
-    public void addElement(FileSystemObjects... elements) {
-        for (FileSystemObjects element : elements) {
-            if (element == this) {
-                System.out.println("Error. You can't move the folder into itself");
+    public String getDirectoryContents() {
+        StringBuilder content = new StringBuilder();
+        for (File element : this.getFileList()) {
+            if (element instanceof Directory) {
+                content.append(((Directory) element).getDirectoryContents());
             } else {
-
-                element.setParentDirectory(this);
-                this.elements.add(element);
+                content.append(element.getName());
             }
         }
+        return this.getName() + "(" + content + ")";
     }
 
-    @Override
-    public void setParentDirectory(FileSystemObjects parentDirectory) {
-        super.setParentDirectory(parentDirectory);
-        for (FileSystemObjects element : this.elements) {
-            element.setParentDirectory(this);
-        }
+    public void move(Directory moveTo) {
+        super.move(moveTo);
+        this.parent = moveTo;
     }
+
+    public File getParent() {
+        return this.parent;
+    }
+
 }
