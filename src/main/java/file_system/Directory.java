@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Directory extends File {
-    private Directory parent;
     private List<File> files = new ArrayList<>();
 
     public Directory(String name) {
@@ -13,18 +12,20 @@ public class Directory extends File {
     }
 
     public Directory(String name, Directory parent) {
-        super(name);
-        this.parent = parent;
+        super(name,parent);
         parent.getFileList().add(this);
     }
 
-    @Override
     public int getSize() {
         // представим, что папка весит хоть что-то (1 байт)
         int systemSize = 1;
         int size = systemSize;
         for (File element : this.getFileList()) {
-            size += element.getSize();
+            if (element instanceof Directory){
+                size += ((Directory)element).getSize();
+            } else {
+                size += element.getSize();
+            }
         }
         return size;
     }
@@ -41,17 +42,10 @@ public class Directory extends File {
         return this.getName() + "(" + content + ")";
     }
 
-    public File getParent() {
-        return this.parent;
-    }
 
     public List<File> getFileList() {
         return this.files;
     }
 
-    public void move(Directory moveTo) {
-        ((Directory)this.getParent()).getFileList().remove(this);
-        moveTo.getFileList().add(this);
-        this.parent = moveTo;
-    }
+
 }

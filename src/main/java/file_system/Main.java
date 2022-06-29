@@ -7,6 +7,9 @@ public class Main {
         Directory dir1 = new Directory("dir1", root);
         Directory dir2 = new Directory("dir2", dir1);
         Directory dir3 = new Directory("dir3", dir2);
+        Directory dir4 = new Directory("dir4", dir3);
+        Directory dir5 = new Directory("dir5", dir2);
+
         TextFile file1 = new TextFile("file1.txt", 10, dir3);
         TextFile file2 = new TextFile("file2.txt", 30, dir3);
 //        вложенность:
@@ -17,6 +20,13 @@ public class Main {
 //                    file1.txt
 //                    file2.txt
 //                dir5
+
+
+        System.out.println(dir3.getPath());
+        System.out.println(file1.getPath());
+
+
+
         System.out.println(root.getDirectoryContents());
         System.out.println("file1 path before: " + file1.getPath());
         dir3.move(dir1);
