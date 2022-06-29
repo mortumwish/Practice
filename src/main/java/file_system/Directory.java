@@ -13,14 +13,14 @@ public class Directory extends File {
 
     public Directory(String name, Directory parent) {
         super(name,parent);
-        parent.getFileList().add(this);
+        parent.files.add(this);
     }
 
     public int getSize() {
         // представим, что папка весит хоть что-то (1 байт)
         int systemSize = 1;
         int size = systemSize;
-        for (File element : this.getFileList()) {
+        for (File element : this.files) {
             if (element instanceof Directory){
                 size += ((Directory)element).getSize();
             } else {
@@ -32,7 +32,7 @@ public class Directory extends File {
 
     public String getDirectoryContents() {
         StringBuilder content = new StringBuilder();
-        for (File element : this.getFileList()) {
+        for (File element : this.files) {
             if (element instanceof Directory) {
                 content.append(((Directory) element).getDirectoryContents());
             } else {
